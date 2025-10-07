@@ -52,6 +52,9 @@ unimined {
                 // Modloader
                 ['BaseMod', 'EntityRendererProxy', 'MLProp', 'ModLoader', 'ModTextureAnimation', 'ModTextureStatic'].each(mapClass)
 
+                // ModloaderMP
+                ['BaseModMp', 'ISpawnable', 'ModLoaderMp', 'NetClientHandlerEntity', 'Packet230ModLoader'].each(mapClass)
+
                 // Forge
                 ['ArmorProperties', 'BlockTextureParticles', 'Configuration', 'ForgeHooks', 'ForgeHooksClient', 'IArmorTextureProvider', 'IBlockSecondaryProperties', 'IBucketHandler', 'IConnectRedstone', 'ICraftingHandler', 'ICustomItemRenderer', 'IDestroyToolHandler', 'IHighlightHandler', 'IMultipassRender', 'IOverrideReplace', 'ISleepHandler', 'ISpecialArmor', 'ISpecialResistance', 'ITextureProvider', 'IUseItemFirst', 'MinecraftForge', 'MinecraftForgeClient', 'Property'].collect { "forge/$it" }.each(mapClass)
             }
@@ -71,7 +74,11 @@ unimined {
 
 dependencies {
     jarMod 'risugami:modloader:b1.7.3'
+    jarMod 'modloadermp:modloadermp:b1.7.3:client'
     jarMod 'net.minecraftforge:forge:b1.7.3-1.0.7:client'
+
+    // Any mods in the jarmods folder are automatically added as dependencies
+    jarMod fileTree(dir: 'jarmods', include: ['*.jar', '*.zip'])
 }
 
 jar {
@@ -79,8 +86,8 @@ jar {
 
     manifest {
         attributes(
-                "JarModAgent-Transforms": "${modid}.transform",
-                "JarModAgent-Refmaps": "${modid}-refmap.json"
+                'JarModAgent-Transforms': "${modid}.transform",
+                'JarModAgent-Refmaps': "${modid}-refmap.json"
         )
     }
 }
