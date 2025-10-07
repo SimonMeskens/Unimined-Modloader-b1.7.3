@@ -8,6 +8,6 @@ Editing vanilla base classes is actually super easy. In IntelliJ, go to External
 
 ## JarModAgent
 
-JarModAgent is a Java agent that can be used to apply class transforms. In Prism, for example, go to Edit... -> Version -> Add Agent, then add the JarModAgent jar. The example mod has an example transform to look at. If you don't need this, just get rid of the `.transform` file, the `transforms` call in `build.gradle` and the manifest.
+JarModAgent is a Java agent that can be used to apply class transforms. In Prism, for example, go to Edit... -> Version -> Add Agent, then add [the JarModAgent jar](https://maven.wagyourtail.xyz/releases/xyz/wagyourtail/unimined/jarmod-agent/0.1.3/jarmod-agent-0.1.3-all.jar). The example mod has an example transform to look at. If you don't need this, just get rid of the `.transform` file, the `transforms` call in `build.gradle` and the manifest.
 
 There is currently an issue where you need to manually edit the refmap file because it will generate, for example, `"initGui": "Lfu;b()V"` when it should be `"initGui": "b()V"`. I don't know how to fix this.
