@@ -38,7 +38,7 @@ unimined {
         side 'client'
 
         mappings {
-            mcp('legacy', '4.3-b1.7.3')
+            retroMCP("b1.7")
 
             stub.withMappings(['searge', 'mcp']) {
                 def base = 'net/minecraft/src'
