@@ -2,6 +2,7 @@ package com.example;
 
 import net.minecraft.src.BaseMod;
 
+@SuppressWarnings("unused")
 public class mod_ExampleMod extends BaseMod {
     public mod_ExampleMod() {
         System.out.println("Example Mod initialized.");
