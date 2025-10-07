@@ -12,6 +12,17 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+jar {
+    from('LICENSE')
+
+    manifest {
+        attributes(
+                "JarModAgent-Transforms": "${modid}.transform",
+                "JarModAgent-Refmaps": "${modid}-refmap.json"
+        )
+    }
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://maven.wagyourtail.xyz/releases' }
@@ -72,15 +83,4 @@ unimined {
 dependencies {
     jarMod 'risugami:modloader:b1.7.3'
     jarMod 'net.minecraftforge:forge:b1.7.3-1.0.7:client'
-}
-
-jar {
-    from('LICENSE')
-
-    manifest {
-        attributes(
-                "JarModAgent-Transforms": "${modid}.transform",
-                "JarModAgent-Refmaps": "${modid}-refmap.json"
-        )
-    }
 }
