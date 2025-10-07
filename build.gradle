@@ -1,0 +1,86 @@
+plugins {
+    id 'java'
+    id 'xyz.wagyourtail.unimined' version '1.3.15'
+}
+
+group = project.property('group')
+version = project.property('version')
+base.archivesBaseName = project.property('modid')
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.wagyourtail.xyz/releases' }
+
+    ivy {
+        // We need this because the b1.7.3 forge dependency doesn't have metadata
+        url 'https://maven.wagyourtail.xyz/releases'
+
+        patternLayout {
+            artifact('[organisation]/[module]/[revision]/[module]-[revision]-[classifier].zip')
+            m2compatible = true
+        }
+        metadataSources {
+            artifact()
+        }
+    }
+}
+
+unimined {
+    useGlobalCache = false
+
+    minecraft {
+        version 'b1.7.3'
+        side 'client'
+
+        mappings {
+            mcp('legacy', '4.3-b1.7.3')
+
+            stub.withMappings(['searge', 'mcp']) {
+                def base = 'net/minecraft/src'
+                def mapClass = { name ->
+                    def path = "$base/$name"
+                    c(name, path, path)
+                }
+
+                c('mod_ExampleMod', 'com/example/mod_ExampleMod', 'com/example/mod_ExampleMod')
+
+                // Modloader
+                ['BaseMod', 'EntityRendererProxy', 'MLProp', 'ModLoader', 'ModTextureAnimation', 'ModTextureStatic'].each(mapClass)
+
+                // Forge
+                ['ArmorProperties', 'BlockTextureParticles', 'Configuration', 'ForgeHooks', 'ForgeHooksClient', 'IArmorTextureProvider', 'IBlockSecondaryProperties', 'IBucketHandler', 'IConnectRedstone', 'ICraftingHandler', 'ICustomItemRenderer', 'IDestroyToolHandler', 'IHighlightHandler', 'IMultipassRender', 'IOverrideReplace', 'ISleepHandler', 'ISpecialArmor', 'ISpecialResistance', 'ITextureProvider', 'IUseItemFirst', 'MinecraftForge', 'MinecraftForgeClient', 'Property'].collect { "forge/$it" }.each(mapClass)
+            }
+        }
+
+        jarMod {
+            transforms "${modid}.transform"
+        }
+
+        runs {
+            config('client') {
+                jvmArgs '-Djma.debug=true'
+            }
+        }
+    }
+}
+
+dependencies {
+    jarMod 'risugami:modloader:b1.7.3'
+    jarMod 'net.minecraftforge:forge:b1.7.3-1.0.7:client'
+}
+
+jar {
+    from('LICENSE')
+
+    manifest {
+        attributes(
+                "JarModAgent-Transforms": "${modid}.transform",
+                "JarModAgent-Refmaps": "${modid}-refmap.json"
+        )
+    }
+}
