@@ -22,4 +22,8 @@ public class mod_ExampleMod extends BaseMod {
     public String Description() {
         return "Lorem ipsum dolor sit amet";
     }
+
+    public String Icon() {
+        return "/examplemod/icon.png";
+    }
 }
