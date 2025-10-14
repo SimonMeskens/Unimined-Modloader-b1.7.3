@@ -20,7 +20,7 @@ public class mod_ExampleMod extends BaseMod {
     }
 
     public String Description() {
-        return "Lorem ipsum dolor sit amet";
+        return "Example Description";
     }
 
     public String Icon() {
